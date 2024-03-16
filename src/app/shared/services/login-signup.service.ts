@@ -17,6 +17,8 @@ export class LoginSignupService {
   }
 
   userRegister(user_dto:any):Observable<any>{
+
+    console.log("User Registeration Data : ",JSON.stringify(user_dto));
     return this.apiService.post(this.reg_url+'/user',user_dto)
   }
 
