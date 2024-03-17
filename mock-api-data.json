@@ -157,9 +157,8 @@
       "id": "6"
     },
     {
-      "id": "40f0",
       "aboutYou": "sdvdfvdfbgdfbgfsbfdabgref gfregregre gregregfvdv  regfre frefrwe",
-      "age": 22,
+      "age": 23,
       "agreetc": true,
       "dob": "2002-02-20",
       "email": "sdfsdfs@gmail.com",
@@ -169,17 +168,18 @@
         "addLine1": "fvdfvdfsvdfavg",
         "addLine2": "dsfsdfsdg",
         "city": "Agra",
-        "state": "...",
+        "state": "UP",
         "zipCode": "282007"
       },
       "language": [
         "English"
       ],
       "mobNumber": "9876543210",
-      "name": "dfdvdfvdf",
+      "name": "Aryan Singh",
       "password": "1234abc",
-      "uploadPhoto": "C:\\fakepath\\18949_en_1.jpg",
-      "role": "seller"
+      "uploadPhoto": "C:\\fakepath\\18915_en_1.jpg",
+      "role": "seller",
+      "id": "40f0"
     }
   ],
   "products": [

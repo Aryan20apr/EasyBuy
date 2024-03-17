@@ -106,6 +106,8 @@ export class SigninSignupComponent implements OnInit {
   onSubmitSignIn(){
     this.loginService.authLogin(this.signInFormValue.userEmail, this.signInFormValue.userPassword).subscribe(data=>{
       this.user_data = data;
+
+      console.log('User data obtained on login:',JSON.stringify(this.user_data))
       if(this.user_data.length ==1){
         if(this.user_data[0].role =="seller"){
           sessionStorage.setItem("user_session_id", this.user_data[0].id);
