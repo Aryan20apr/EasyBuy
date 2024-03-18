@@ -7,10 +7,10 @@ import { CustomerService } from '../../services/customer.service';
   selector: 'app-buyer-dashboad',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './buyer-dashboad.component.html',
-  styleUrl: './buyer-dashboad.component.css'
+  templateUrl: './buyer-dashboard.component.html',
+  styleUrl: './buyer-dashboard.component.css'
 })
-export class BuyerDashboadComponent implements OnInit{
+export class BuyerDashboardComponent implements OnInit{
   all_products:any;
   show_Checkout:boolean =false;
 

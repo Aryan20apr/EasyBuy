@@ -356,6 +356,30 @@
       },
       "contact": "83685222555",
       "dateTime": "1/27/2024"
+    },
+    {
+      "id": 0,
+      "userId": 6,
+      "sellerId": 2,
+      "product": {
+        "id": "1",
+        "name": "Polyester Door Curtain",
+        "uploadPhoto": "https://rukminim1.flixcart.com/image/832/832/jcf487k0/curtain/w/e/y/elegant-cream-door-curtains-set-of-2-213-soe-fsb-120-120-eyelet-original-imaffk7f9wng4v4m.jpeg",
+        "productDesc": "Transform the ambiance of your home with these elegant, crushed texture, light weight, solid color curtains. These curtains are available in several colors and sizes to match to your home decor and the gracefully flowing polyester is durable and machine washable for your convenience.",
+        "mrp": "1000",
+        "dp": "499",
+        "status": "publish"
+      },
+      "deliveryAddress": {
+        "id": 0,
+        "addLine1": "46464646",
+        "addLine2": "446",
+        "city": "Uttar Pradesh",
+        "state": "MP",
+        "zipCode": "9865656"
+      },
+      "contact": "877644644464",
+      "dateTime": "18/03/2024"
     }
   ]
 }
