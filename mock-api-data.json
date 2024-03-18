@@ -108,7 +108,6 @@
     {
       "aboutYou": "Soasdjalkjdljl",
       "age": 4,
-      "agreetc": true,
       "dob": "1998-12-02",
       "email": "test@gmail.com",
       "gender": "Male",
@@ -127,8 +126,7 @@
       "mobNumber": "5564646466464",
       "name": "Test",
       "password": "123456789",
-      "uploadPhoto": "C:\\fakepath\\Angular 17 Admin (6).png",
-      "role": "seller",
+      "uploadPhoto": "C:\\fakepath\\18925_en_1.jpg",
       "id": "5"
     },
     {

@@ -29,12 +29,7 @@
       <td>{{user_data.dob}}</td>
       <td>{{user_data.address.city}}</td>
       <td>
-        <!-- <span [ngClass]="{
-          'badge rounded-pill text-bg-warning': user_data.role === 'seller',
-          'badge rounded-pill text-bg-success': user_data.role === 'buyer',
-          'badge rounded-pill text-bg-danger': user_data.role === 'admin'}">
-          {{ user_data.role }}
-        </span> -->
+     
         <span [ngClass]="
         user_data.role === 'seller' ? 'badge rounded-pill text-bg-warning' :
         user_data.role === 'buyer' ? 'badge rounded-pill text-bg-success' :
@@ -48,7 +43,7 @@
         <span class="sim-pointer" (click)="editUserPopup(user_data.id)" data-bs-toggle="modal"
           data-bs-target="#addEditUserModal">Edit</span>
         &nbsp;&nbsp;&nbsp;
-        <span class="sim-pointer" (click)="deleteUser(user_data.id)">Del</span>
+        <span class="sim-pointer" (click)="deleteUser(user_data.id)">Delete</span>
       </td>
     </tr>
   </tbody>
