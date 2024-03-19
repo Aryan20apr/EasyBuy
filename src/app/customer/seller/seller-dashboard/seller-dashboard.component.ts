@@ -27,7 +27,7 @@ export class SellerDashboardComponent implements OnInit{
     this.sellerProductDashboardData();
   }
   sellerProductDashboard(){
-    this.router.navigateByUrl("/seller/product")
+    this.router.navigateByUrl("/seller-product")
   }
   sellerOrderDashboard(){
     alert("this option for only WIP candidates")
