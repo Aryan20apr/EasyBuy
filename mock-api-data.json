@@ -126,6 +126,7 @@
       "mobNumber": "5564646466464",
       "name": "Test",
       "password": "123456789",
+      "role": "admin",
       "uploadPhoto": "C:\\fakepath\\18925_en_1.jpg",
       "id": "5"
     },
@@ -358,7 +359,7 @@
       "dateTime": "1/27/2024"
     },
     {
-      "id": 0,
+      "id": "0",
       "userId": 6,
       "sellerId": 2,
       "product": {
@@ -380,6 +381,30 @@
       },
       "contact": "877644644464",
       "dateTime": "18/03/2024"
+    },
+    {
+      "id": 0,
+      "userId": 4,
+      "sellerId": 2,
+      "product": {
+        "id": "5",
+        "name": "TIZUM Aluminium Portable Stand",
+        "uploadPhoto": "https://rukminim1.flixcart.com/image/832/832/jx0prbk0/mobile-holder/t/3/d/aluminium-portable-stand-with-convenient-charging-port-design-original-imafhkkxjvphhhgz.jpeg",
+        "productDesc": "The aluminium material used in the stand makes it sturdy and strong. Multi-angle fold-ability provides with a seamless viewing experience. The light weight of this stand allows it to be carried around everywhere conveniently. Universally designed to fit 3.5-8 inch phones and tablets without hassle. Apart from phones and tabs, the stand also holds gaming console like Nintendo play. •Aluminium Stand with Multi-Angle foldability ",
+        "mrp": "300",
+        "dp": "199",
+        "status": "inactive"
+      },
+      "deliveryAddress": {
+        "id": 0,
+        "addLine1": "somthing.",
+        "addLine2": "near about",
+        "city": "delhi",
+        "state": "UP",
+        "zipCode": "2359865"
+      },
+      "contact": "86744645764",
+      "dateTime": "21/03/2024"
     }
   ]
 }

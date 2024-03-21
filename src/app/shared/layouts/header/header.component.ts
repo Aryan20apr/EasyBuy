@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
 
   }
   ngDoCheck() {
+    
     this.user_role = sessionStorage.getItem("role");
     const user_sesson_id = sessionStorage.getItem("user_session_id");
     if(user_sesson_id){
@@ -27,6 +28,7 @@ export class HeaderComponent implements OnInit {
     }
   }
   logout(){
+    
     sessionStorage.removeItem("user_session_id");
     sessionStorage.removeItem("role");
     this.router.navigateByUrl('/sign-in');
