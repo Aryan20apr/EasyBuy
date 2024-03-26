@@ -5,11 +5,13 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router } from '@angular/router';
 import { ProductService } from '../shared/services/product.service';
 import { Product } from '../core/models/product.model';
+import { DropzoneComponent } from '../shared/layouts/dropzone/dropzone.component';
+import { UploadService } from '../shared/services/upload.service';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,TitleCasePipe],
+  imports: [DropzoneComponent,CommonModule, FormsModule, ReactiveFormsModule,TitleCasePipe],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -24,15 +26,19 @@ export class ProductComponent implements OnInit{
   single_product_data:any;
   product_dto!:Product
   edit_product_id:any;
+  files: File[] = [];
+  uploadImageUrls:string[]=[];
+  uploadProgress:(number|undefined)[] = [];
 
-  constructor(private fb:FormBuilder, private router:Router, private productService:ProductService){
+  uploadSubscription: any;
+  constructor(private uploadService:UploadService,private fb:FormBuilder, private router:Router, private productService:ProductService){
 
   }
 
   ngOnInit(): void {
     this.addEditProductDForm = this.fb.group({
       name:['',Validators.required],
-      uploadPhoto:['',Validators.required],
+      // uploadPhoto:['',Validators.required],
       productDesc:['',Validators.required],
       mrp:['',Validators.required],
       dp:['',Validators.required],
@@ -57,27 +63,68 @@ export class ProductComponent implements OnInit{
     this.popup_header = "Add new Product";
     this.addEditProductDForm.reset();
   }
+  onFilesSelected(files: File[]) {
+    // Update selected files when files are selected
+    this.files = files;
+  }
   addNewProduct(){
+    debugger;
     this.addEditProduct = true;
     if(this.addEditProductDForm.invalid){
       return;
     }
+    this.uploadFiles();
+    
+
+    
+
+  }
+
+  createProduct()
+  {
     this.prouct_data = this.addEditProductDForm.value;
     this.product_dto = {
-      id:0,
+      id:Math.floor(Math.random() * 100) + 1,
       name:this.prouct_data.name,
-      uploadPhoto:this.prouct_data.uploadPhoto,
+      uploadPhoto:this.uploadService.imageUrls[0],
       productDesc:this.prouct_data.productDesc,
       mrp:this.prouct_data.mrp,
       dp:this.prouct_data.dp,
       status:this.prouct_data.status,
     }
+
+
     this.productService.addNewProduct(this.product_dto).subscribe({next:data=>{
       console.log(data);
       this.getAllProduct();
     },error:error=>{
       console.log("Some error occured while adding new product:", error)
     }})
+  }
+
+  uploadFiles() {
+    this.uploadProgress = []; // Clear progress array
+    let fileCount=0;
+    this.uploadService.uploadFiles(this.files).subscribe({
+     next: (progressArray: (number|undefined)[]) => {
+        this.uploadProgress = progressArray;
+        console.log(this.uploadProgress)
+        fileCount++;
+        this.uploadProgress.forEach((element: number | undefined)=>{if(typeof element !== "undefined"){console.log(element)}})
+        // Extract URLs from progressArray and collect them into uploadedImageUrls array
+        // this.uploadImageUrls = progressArray.map(item => item.url);
+        if(fileCount==this.files.length)
+        {
+          this.createProduct()
+        }
+      },
+     error: (error) => {
+        console.error('Upload error:', error);
+      },
+      
+    }
+    );
+    
   }
   editProductPopup(id:any){
     this.add_prouct = false;
@@ -121,6 +168,7 @@ export class ProductComponent implements OnInit{
     })
   }
   deleteProduct(id:any){
+    console.log("Id for deleting product:",id)
     let conf = confirm("Do you want to delete this product id:" +id);
     if(conf){
       this.productService.deleteProduct(id).subscribe(data=>{
@@ -131,6 +179,12 @@ export class ProductComponent implements OnInit{
       })
     }else{
       alert("You pressed cancel !")
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.uploadSubscription) {
+      this.uploadSubscription.unsubscribe();
     }
   }
 }
