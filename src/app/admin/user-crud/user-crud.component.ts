@@ -8,7 +8,7 @@ declare var $: any;
 @Component({
   selector: 'app-user-crud',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule,ReactiveFormsModule, FormsModule],
   templateUrl: './user-crud.component.html',
   styleUrl: './user-crud.component.css'
 })
@@ -33,19 +33,21 @@ export class UserCrudComponent implements OnInit{
     this.getAllUser();
     this.addEditUserForm = this.formBuilder.group({
       name: ['', Validators.required],
-      mobNumber: ['', Validators.required],
-      age: ['', Validators.required],
+      mobNumber: ['', Validators.required,Validators.maxLength(10),
+      Validators.maxLength(10)
+    ],
+      age: ['', Validators.required,Validators.max(100)],
       dob: ['', Validators.required],
-      email: ['', [Validators.required,]],
-      password: ['', [Validators.required,]],
+      email: ['', [Validators.required,Validators.email]],
+      password: ['', [Validators.required,Validators.min(6)]],
       addLine1: ['', Validators.required],
       addLine2: [],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      zipCode: ['', Validators.required],
+      zipCode: ['', Validators.required,Validators.maxLength(6),Validators.minLength(6)],
       language: ['', Validators.required],
       gender: ['', Validators.required],
-      aboutYou: ['', Validators.required],
+      aboutYou: ['', Validators.required,Validators.maxLength(200)],
       uploadPhoto: ['', Validators.required],
       agreetc: ['', Validators.required],
       role: ['', Validators.required],
@@ -73,7 +75,8 @@ export class UserCrudComponent implements OnInit{
     this.addEditUser=true;
     if(this.addEditUserForm.invalid)
     {
-      alert('Error!! :-)\n\n' +JSON.stringify(this.addEditUserForm.value));
+
+      //alert('Error!! :-)\n\n' +JSON.stringify(this.addEditUserForm.value));
       return;
     }
     this.user_reg_data=this.addEditUserForm.value;
