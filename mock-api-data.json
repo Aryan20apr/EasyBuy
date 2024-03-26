@@ -300,7 +300,7 @@
       "status": "publish"
     },
     {
-      "id": 18,
+      "id": "18",
       "name": "Wallpapers",
       "productDesc": "High quality HD nature wallpapers",
       "mrp": "25000",
@@ -308,7 +308,7 @@
       "status": "publish"
     },
     {
-      "id": 20,
+      "id": "20",
       "name": "ggdfgbfsd",
       "productDesc": "fgdfdgdfghbrthbrth",
       "mrp": "2200",
@@ -316,7 +316,7 @@
       "status": "publish"
     },
     {
-      "id": 46,
+      "id": "46",
       "name": "ghgfbgfbgfb",
       "productDesc": "gfbgfbgfhnhgn",
       "mrp": "3513",
@@ -324,12 +324,20 @@
       "status": "publish"
     },
     {
-      "id": 49,
+      "id": "49",
       "name": "gmbgfbgfb",
       "productDesc": "fgbsdfbhfgsbgf",
       "mrp": "9500",
       "dp": "7520",
       "status": "inactive"
+    },
+    {
+      "id": 64,
+      "name": "gbfgbgfb",
+      "productDesc": "gbgsfbgfb",
+      "mrp": "6846",
+      "dp": "2316",
+      "status": "darft"
     }
   ],
   "orders": [

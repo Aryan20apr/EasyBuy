@@ -32,6 +32,7 @@
     "@types/dropzone": "^5.7.8",
     "dropzone": "^6.0.0-beta.2",
     "firebase": "^10.7.1",
+    "firebase-tools": "^13.5.2",
     "font-awesome": "^4.7.0",
     "json-server": "^1.0.0-alpha.23",
     "ngx-toastr": "^18.0.0",
