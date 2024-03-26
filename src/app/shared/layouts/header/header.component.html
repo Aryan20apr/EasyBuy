@@ -54,6 +54,12 @@
         </li>
     </ul>
     <ul class="navbar-nav ml-auto" *ngIf="logged_in">
+      <!-- User Dropdown -->
+      <li class="nav-item">
+        <a class="nav-link sim-pointer" routerLink="/cart">
+          <fa-icon [icon]="faShoppingCart" aria-label="cart" title="Cart"></fa-icon> Your Cart
+        </a>
+    </li>
         <li class="nav-item">
             <a class="nav-link sim-pointer" routerLink="/my-profile">My Profile</a>
         </li>
