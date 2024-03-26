@@ -1,0 +1,58 @@
+<br>
+<!-- <h2 class="text-center text-bold">You clicked on Product Id: {{single_product_id}}</h2> -->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/buyer-dashboard">Buyer</a></li>
+    <li class="breadcrumb-item"><a>Checkout</a></li>
+  </ol>
+</nav>
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        Product detail
+      </div>
+      <div class="card-body product-detail">
+        <div class="card mb-3" *ngFor="let prod of order_items; index as i">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{prod.product.uploadPhoto}}" class="card-img-top" alt="{{prod.product.name}}">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h4 class="card-title">{{prod.product.name}}</h4>
+                  <p class="card-text">
+                    <span class="float-start"><strong>MRP:</strong> <del>{{prod.product.mrp}}</del></span>
+                    <span class="float-end"><strong>DP:</strong> {{prod.product.dp}}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        Address Detail
+      </div>
+      <div class="card-body">
+        <h5 class="card-title text-bold">{{user_address.name}}</h5>
+        <p class="card-text">{{user_address.addLine1}}, {{user_address.addLine2}}</p>
+        <p class="card-text">{{user_address.city}}, {{user_address.state}}</p>
+        <p class="card-text">Postal Code: {{user_address.zipCode}}</p>
+        <p class="card-text">Contact Number: {{user_contact_no}}</p>
+        <a (click)="placeOrder()" class="btn btn-primary">Deliver Here ☻</a>
+        <div class="alert alert-info" role="alert">
+          <strong>Note:</strong>
+          we are not giving multiple  address addition, if you want to deliver in diffrent address for now change the address in
+          <span routerLink="/my-profile" class="text-info sim-pointer">My profile</span>
+          Section.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
