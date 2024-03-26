@@ -12,6 +12,8 @@ import { BuyerDashboardComponent } from './customer/buyer/buyer-dashboard/buyer-
 import { CheckoutComponent } from './customer/buyer/checkout/checkout.component';
 import { PageNotFoundComponent } from './shared/layouts/page-not-found/page-not-found.component';
 import { adminAuthGuardAfterLogin, adminAuthGuardBeforeLogin, buyerAuthGuard, sellerAuthGuard, sellerBuyerAuthGuardLogin } from './shared/services/auth.guard';
+import { CartComponent } from './customer/buyer/cart/cart.component';
+import { CartCheckoutComponent } from './customer/buyer/cart-checkout/cart-checkout.component';
 
 export const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
@@ -49,6 +51,8 @@ export const routes: Routes = [
         path:'',canActivate:[buyerAuthGuard],children:[
             {path:'buyer-dashboard',component:BuyerDashboardComponent},
             {path:'checkout',component:CheckoutComponent},
+            {path:'cart-checkout',component:CartCheckoutComponent},
+            {path:'cart',component:CartComponent}
         ]
     },
     {path:'**',component:PageNotFoundComponent}

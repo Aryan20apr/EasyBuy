@@ -13,11 +13,15 @@ import { CustomerService } from '../../services/customer.service';
 export class BuyerDashboardComponent implements OnInit{
   all_products:any;
   show_Checkout:boolean =false;
+  cartProduct:any;
+  user_id!:number;
+
 
   constructor(private router:Router, private customerService:CustomerService){}
 
   ngOnInit(): void {
- this.getAllProduct()
+  this.getAllProduct()
+  this.user_id = Number(sessionStorage.getItem('user_session_id'));
   }
   getAllProduct(){
     this.customerService.allProduct().subscribe(data=>{
@@ -33,7 +37,20 @@ export class BuyerDashboardComponent implements OnInit{
     this.customerService.quickBuyProduct(id);
     this.router.navigateByUrl('/checkout');
   }
-  addToCart(){
-    alert("This is showcase")
-  }
+  addToCart(itemIndex:number){
+    
+    this.cartProduct={
+      product:this.all_products[itemIndex],
+      userId:this.user_id
+    }
+    this.customerService.addToCart(this.cartProduct).subscribe({
+      next:(data)=>{
+          console.log("Item added to cart successfully")
+      },
+      error:(error)=>{
+          console.error("Error occured while adding to cart:",error)
+      }
+    });
+    }
+    
 }

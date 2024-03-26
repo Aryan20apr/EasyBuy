@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { CustomerService } from '../../services/customer.service';
 import { Router } from '@angular/router';
-import { Product } from '../../../core/models/product.model';
+
 import { User } from '../../../core/models/user.model';
 import { Order } from '../../../core/models/order.model';
+import { Product } from '../../../core/models/cartItem.model';
 
 @Component({
   selector: 'app-checkout',
@@ -49,9 +50,9 @@ order_dto!:Order
   }
   placeOrder(){
     this.order_dto ={
-      id:0,
+      
       userId:this.user_id,
-      sellerId:2,
+      
       product:{
         id:this.individual_product.id,
         name:this.individual_product.name,

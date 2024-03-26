@@ -6,7 +6,7 @@
     </ol>
 </nav>
 <div class="row">
-    <div class="col-sm-4 product" *ngFor="let product of all_products;">
+    <div class="col-sm-4 product" *ngFor="let product of all_products; index as i;">
         <div class="card">
             <img src="{{product.uploadPhoto}}" class="card-img-top" alt="{{product.name}}">
             <div class="card-body">
@@ -19,7 +19,7 @@
                 </p>
                 <br>
                 <p class="card-text product-desc">{{product.productDesc}}</p>
-                <a class="btn btn-primary float-left" (click)="addToCart()">Add to Cart</a>
+                <a class="btn btn-primary float-left" (click)="addToCart(i)">Add to Cart</a>
                 <a class="btn btn-warning float-right" (click)="buyProduct(product.id)">Buy Now</a>
             </div>
         </div>

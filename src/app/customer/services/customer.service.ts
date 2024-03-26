@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from '../../core/service/api.service';
+import { CartItem } from '../../core/models/cartItem.model';
+import { Order } from '../../core/models/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,10 @@ currentProduct=this.single_product_id.asObservable();
 public user_url="http://localhost:3000/user/";
   public product_url="http://localhost:3000/products/";
   public order_url="http://localhost:3000/orders/";
+  public cart_url="http://localhost:3000/cart/";
+
+  cartItems:CartItem[]=[];
+
 
   constructor(private  apiService:ApiService) {
 
@@ -39,10 +45,23 @@ public user_url="http://localhost:3000/user/";
    insertNewOrder(order_dto:any):Observable<any>{
     return this.apiService.post(this.order_url,order_dto);
    }
+   placeBulkOrder(order_dto:Order[]):Observable<any>{
+    return this.apiService.post(this.order_url,order_dto);
+   }
    orderDashboardData():Observable<any>{
     return this.apiService.get(this.order_url);
   }
   productDashboardData():Observable<any>{
     return this.apiService.get(this.product_url);
+  }
+
+  addToCart(cart_dto:any ):Observable<any>
+  {
+      return this.apiService.post(this.cart_url,cart_dto);
+  }
+  getCartItems():Observable<CartItem[]>
+  {
+    var userId:number=Number(localStorage.getItem('user_session_id'));
+    return this.apiService.get(this.cart_url+"?userId"+userId);
   }
 }
