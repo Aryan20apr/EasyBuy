@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginSignupService } from '../../shared/services/login-signup.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-login',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,FormsModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './admin-login.component.html',
   styleUrl: './admin-login.component.css'
 })

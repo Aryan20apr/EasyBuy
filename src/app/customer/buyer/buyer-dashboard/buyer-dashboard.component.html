@@ -8,7 +8,58 @@
 <div class="row">
     <div class="col-sm-4 product" *ngFor="let product of all_products; index as i;">
         <div class="card">
+            
+            <!-- @if(product.uploadPhoto.length)
+            { -->
             <img src="{{product.uploadPhoto}}" class="card-img-top" alt="{{product.name}}">
+            <!-- } -->
+           <!-- @else
+           { -->
+            
+           
+                <!-- <div id="carouselExampleIndicators" class="carousel slide ">
+                
+                    <div class="carousel-inner">
+                    
+                        @for( let url in product.uploadPhoto;)
+                        {
+                      <div class="carousel-item active">
+                        <img src="{{url}}" class="d-block w-100" alt="Product Image">
+                      </div>
+                    }
+                    @empty{
+                        <div>No Images</div>
+                    }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div> -->
+                  <!-- <div id="carouselExampleIndicators" class="carousel slide">
+                    <div class="carousel-inner">
+                      <div *ngFor="let url of product.uploadPhoto; let isFirst = first" class="carousel-item" [class.active]="isFirst">
+                        <img src="{{ url }}" class="d-block w-100" alt="Product Image">
+                      </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                  <div *ngIf="product.uploadPhoto.length === 0">
+                    No Images
+                  </div>
+           } -->
+           
             <div class="card-body">
                 <h4 class="card-title">{{product.name}}</h4>
                 <p>
@@ -19,7 +70,7 @@
                 </p>
                 <br>
                 <p class="card-text product-desc">{{product.productDesc}}</p>
-                <a class="btn btn-primary float-left" (click)="addToCart(i)">Add to Cart</a>
+                <a class="btn btn-primary float-left" (click)="addToCart(i)">Add to Cart</a>&nbsp;
                 <a class="btn btn-warning float-right" (click)="buyProduct(product.id)">Buy Now</a>
             </div>
         </div>

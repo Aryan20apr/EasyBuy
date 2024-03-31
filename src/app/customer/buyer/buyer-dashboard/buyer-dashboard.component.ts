@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
@@ -6,7 +6,7 @@ import { CustomerService } from '../../services/customer.service';
 @Component({
   selector: 'app-buyer-dashboad',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink,NgFor,NgIf],
   templateUrl: './buyer-dashboard.component.html',
   styleUrl: './buyer-dashboard.component.css'
 })
@@ -15,7 +15,7 @@ export class BuyerDashboardComponent implements OnInit{
   show_Checkout:boolean =false;
   cartProduct:any;
   user_id!:number;
-
+  
 
   constructor(private router:Router, private customerService:CustomerService){}
 
@@ -26,6 +26,7 @@ export class BuyerDashboardComponent implements OnInit{
   getAllProduct(){
     this.customerService.allProduct().subscribe(data=>{
       this.all_products = data;
+      
       console.log(this.all_products)
     },error=>{
       console.log("My error", error)

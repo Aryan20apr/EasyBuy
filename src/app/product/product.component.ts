@@ -7,6 +7,7 @@ import { ProductService } from '../shared/services/product.service';
 import { Product } from '../core/models/product.model';
 import { DropzoneComponent } from '../shared/layouts/dropzone/dropzone.component';
 import { UploadService } from '../shared/services/upload.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-product',
@@ -29,13 +30,15 @@ export class ProductComponent implements OnInit{
   files: File[] = [];
   uploadImageUrls:string[]=[];
   uploadProgress:(number|undefined)[] = [];
-
+  isLoading:boolean=false;
   uploadSubscription: any;
+  isUploaded!: boolean|null;
   constructor(private uploadService:UploadService,private fb:FormBuilder, private router:Router, private productService:ProductService){
 
   }
 
   ngOnInit(): void {
+    
     this.addEditProductDForm = this.fb.group({
       name:['',Validators.required],
       // uploadPhoto:['',Validators.required],
@@ -58,6 +61,9 @@ export class ProductComponent implements OnInit{
     }})
   }
   addProductPopup(){
+    this.isLoading=false;
+    this.isUploaded=null;
+
     this.add_prouct = true;
     this.edit_prouct = false;
     this.popup_header = "Add new Product";
@@ -68,59 +74,68 @@ export class ProductComponent implements OnInit{
     this.files = files;
   }
   addNewProduct(){
-    debugger;
-    this.addEditProduct = true;
-    if(this.addEditProductDForm.invalid){
+   
+    this.addEditProduct = true;  
+      if(this.addEditProductDForm.invalid){
       return;
     }
+    this.isLoading=true;
+    this.isUploaded=false;
     this.uploadFiles();
     
-
-    
-
   }
 
   createProduct()
   {
+    this.uploadSubscription.unsubscribe();
     this.prouct_data = this.addEditProductDForm.value;
     this.product_dto = {
       id:Math.floor(Math.random() * 100) + 1,
       name:this.prouct_data.name,
-      uploadPhoto:this.uploadService.imageUrls[0],
+      uploadPhoto:this.uploadService.imageUrls,
       productDesc:this.prouct_data.productDesc,
       mrp:this.prouct_data.mrp,
       dp:this.prouct_data.dp,
       status:this.prouct_data.status,
     }
 
-
-    this.productService.addNewProduct(this.product_dto).subscribe({next:data=>{
-      console.log(data);
+   this.uploadSubscription=  this.productService.addNewProduct(this.product_dto).subscribe({next:data=>{
+      console.log("Product uploaded: ",data);
+      this.isLoading=false;
       this.getAllProduct();
+      
+      console.log(data)
     },error:error=>{
       console.log("Some error occured while adding new product:", error)
-    }})
+    },
+    complete:()=>{
+      this.isUploaded=true;
+      console.log('complete')
+   
+  }
+  });
+  
   }
 
   uploadFiles() {
     this.uploadProgress = []; // Clear progress array
     let fileCount=0;
-    this.uploadService.uploadFiles(this.files).subscribe({
+  this.uploadSubscription=  this.uploadService.uploadFiles(this.files).subscribe({
      next: (progressArray: (number|undefined)[]) => {
         this.uploadProgress = progressArray;
         console.log(this.uploadProgress)
-        fileCount++;
-        this.uploadProgress.forEach((element: number | undefined)=>{if(typeof element !== "undefined"){console.log(element)}})
+        
+        
         // Extract URLs from progressArray and collect them into uploadedImageUrls array
         // this.uploadImageUrls = progressArray.map(item => item.url);
-        if(fileCount==this.files.length)
-        {
-          this.createProduct()
-        }
+        
       },
      error: (error) => {
         console.error('Upload error:', error);
       },
+      complete:()=>{
+          this.createProduct();
+      }
       
     }
     );

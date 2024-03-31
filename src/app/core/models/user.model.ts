@@ -3,15 +3,15 @@ import { Address } from "./address.model";
 export class User{
     name!:string;
     password!:string;
-    uploadPhoto!:string;
+    // uploadPhoto!:string;
     role!:string;
     mobNumber!:string;
     address!:Address;
     gender!:string;
-    language!:string;
+    // language!:string;
     email!:string;
-    dob!:string;
-    agreetc!:boolean;
+    // dob!:string;
+    // agreetc!:boolean;
     age!:number;
-    aboutYou!:string;
+    // aboutYou!:string;
   }

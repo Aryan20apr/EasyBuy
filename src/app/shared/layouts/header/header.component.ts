@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { CUSTOMER_TOKEN, ROLE } from '../../../AppConstants';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ export class HeaderComponent implements OnInit {
   logged_in: boolean = false;
   language: string = 'English';
   user_role!: any;
+  userToken!:string|null;
   faShoppingCart = faShoppingCart;
   constructor(private router: Router) { }
 
@@ -23,16 +25,17 @@ export class HeaderComponent implements OnInit {
   }
   ngDoCheck() {
     
-    this.user_role = sessionStorage.getItem("role");
-    const user_sesson_id = sessionStorage.getItem("user_session_id");
-    if(user_sesson_id){
+    this.user_role = localStorage.getItem(ROLE);
+    this.userToken=localStorage.getItem(CUSTOMER_TOKEN)
+    if(this.user_role){
       this.logged_in = true;
     }
   }
   logout(){
     
-    sessionStorage.removeItem("user_session_id");
-    sessionStorage.removeItem("role");
+    localStorage.removeItem(CUSTOMER_TOKEN);
+    localStorage.removeItem(ROLE);
+
     this.router.navigateByUrl('/sign-in');
     location.reload();
   }

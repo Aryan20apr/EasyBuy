@@ -89,6 +89,7 @@ export class UploadService {
         storageRef.getDownloadURL().subscribe((downloadURL: string) => {
          const url = downloadURL;
           //fileUpload.name = fileUpload.file.name;
+          debugger;
           this.saveFileData(downloadURL);
         });
       })
@@ -98,6 +99,7 @@ export class UploadService {
   }
 
   private saveFileData(imageUrl:string): void {
+    console.log("Image url obtained is: ",imageUrl)
     //this.db.list(this.basePath).push(fileUpload);
     this.imageUrls.push(imageUrl);
   }

@@ -63,7 +63,7 @@ order_dto!:Order
         status:this.individual_product.status
       },
       deliveryAddress:{
-        id:0,
+        
         addLine1:this.user_address.addLine1,
         addLine2:this.user_address.addLine2,
         city:this.user_address.city,

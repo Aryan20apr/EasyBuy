@@ -81,25 +81,25 @@ export class UserCrudComponent implements OnInit{
     }
     this.user_reg_data=this.addEditUserForm.value;
     this.user_dto={
-      aboutYou:this.user_reg_data.aboutYou,
+      
       age:this.user_reg_data.age,
-      agreetc:this.user_reg_data.agreetc,
-      dob:this.user_reg_data.dob,
+     
+      
       email:this.user_reg_data.email,
       gender:this.user_reg_data.gender,
       address:{
-        id: 0,
+        
         addLine1: this.user_reg_data.addLine1,
         addLine2: this.user_reg_data.addLine2,
         city: this.user_reg_data.city,
         state: this.user_reg_data.state,
         zipCode: this.user_reg_data.zipCode,
       },
-      language:this.user_reg_data.language,
+      
       mobNumber:this.user_reg_data.mobNumber,
       name:this.user_reg_data.name,
       password:this.user_reg_data.password,
-      uploadPhoto:this.user_reg_data.uploadPhoto,
+     
       role:this.user_reg_data.role
     }
     this.adminService.addUser(this.user_dto).subscribe(data=>{
@@ -152,25 +152,25 @@ export class UserCrudComponent implements OnInit{
 
     this.user_reg_data = this.addEditUserForm.value;
     this.user_dto ={
-      aboutYou:this.user_reg_data.aboutYou,
+    
       age:this.user_reg_data.age,
-      agreetc:this.user_reg_data.agreetc,
-      dob:this.user_reg_data.dob,
+     
+     
       email:this.user_reg_data.email,
       gender:this.user_reg_data.gender,
       address:{
-        id: 0,
+        
         addLine1: this.user_reg_data.addLine1,
         addLine2: this.user_reg_data.addLine2,
         city: this.user_reg_data.city,
         state: this.user_reg_data.state,
         zipCode: this.user_reg_data.zipCode,
       },
-      language:this.user_reg_data.language,
+    
       mobNumber:this.user_reg_data.mobNumber,
       name:this.user_reg_data.name,
       password:this.user_reg_data.password,
-      uploadPhoto:(this.user_reg_data.uploadPhoto ==""? this.upload_file_name:this.user_reg_data.uploadPhoto),
+     
       role:this.user_reg_data.role
     }
 

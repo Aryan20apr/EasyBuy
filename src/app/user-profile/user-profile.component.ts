@@ -84,25 +84,25 @@ export class UserProfileComponent implements OnInit{
     }
     this.user_update_data = this.userProfileForm.value;
     this.user_dto ={
-      aboutYou:this.user_update_data.aboutYou,
+      
       age:this.user_update_data.age,
-      agreetc:this.user_update_data.agreetc,
-      dob:this.user_update_data.dob,
+     
+     
       email:this.user_update_data.email,
       gender:this.user_update_data.gender,
       address:{
-        id: 0,
+       
         addLine1: this.user_update_data.addLine1,
         addLine2: this.user_update_data.addLine2,
         city: this.user_update_data.city,
         state: this.user_update_data.state,
         zipCode: this.user_update_data.zipCode,
       },
-      language:this.user_update_data.language,
+     
       mobNumber:this.user_update_data.mobNumber,
       name:this.user_update_data.name,
       password:this.user_update_data.password,
-      uploadPhoto:(this.user_update_data.uploadPhoto ==""? this.user_profile_pic:this.user_update_data.uploadPhoto),
+    
       role:this.user_update_data.role
     }
     this.user_Service.updateUserData(this.user_id, this.user_dto).subscribe({

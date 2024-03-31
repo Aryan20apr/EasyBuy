@@ -37,14 +37,14 @@ export const adminAuthGuardAfterLogin: CanActivateFn = (route, state) => {
 export const sellerBuyerAuthGuardLogin: CanActivateFn = (route, state) => {
 
   const router:Router=inject(Router)
-  let role=sessionStorage.getItem('role')
+  let role=localStorage.getItem('ROLE')
   console.log("sellerBuyerAuthGuardLogin:",role)
   if(role=='seller')
   {
     router.navigate(['/seller-dashboard']);
       return false;
   }
-  else if(role=='buyer')
+  else if(role=='CUSTOMER')
   {
     router.navigate(['/buyer-dashboard']);
       return false;
@@ -76,8 +76,8 @@ export const sellerAuthGuard: CanActivateFn = (route, state) => {
 export const buyerAuthGuard: CanActivateFn = (route, state) => {
 
   const router:Router=inject(Router)
-  let role = sessionStorage.getItem("role")
-  if (role == 'buyer') {
+  let role=localStorage.getItem('ROLE')
+  if (role == 'CUSTOMER') {
     return true;
   } else {
     router.navigate(["/sign-in"]);
