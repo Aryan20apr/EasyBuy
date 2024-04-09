@@ -25,7 +25,9 @@ export class SellerDashboardComponent implements OnInit{
   ngOnInit(): void {
     this.sellerOrderDashboardData();
     this.sellerProductDashboardData();
+    
   }
+ 
   sellerProductDashboard(){
     this.router.navigateByUrl("/seller-product")
   }

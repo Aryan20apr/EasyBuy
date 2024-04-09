@@ -9,6 +9,7 @@ import { DropzoneComponent } from '../shared/layouts/dropzone/dropzone.component
 import { UploadService } from '../shared/services/upload.service';
 import { map } from 'rxjs';
 import { SELLER_TOKEN } from '../AppConstants';
+import { CategoryType } from '../core/models/category.model';
 
 @Component({
   selector: 'app-product',
@@ -19,6 +20,7 @@ import { SELLER_TOKEN } from '../AppConstants';
 })
 export class ProductComponent implements OnInit{
   all_product_data:any
+  allCategories!:CategoryType[]
   addEditProductDForm!:FormGroup;
   addEditProduct:boolean = false;
   popup_header!:string;
@@ -39,6 +41,8 @@ export class ProductComponent implements OnInit{
   }
 
   ngOnInit(): void {
+  
+    this.getCategories();
     
     this.addEditProductDForm = this.fb.group({
       name:['',Validators.required],
@@ -48,7 +52,20 @@ export class ProductComponent implements OnInit{
       dp:['',Validators.required],
       status:['',Validators.required],
     })
-    this.getAllProduct()
+    //this.getAllProduct()
+  }
+  getCategories()
+  {
+    debugger;
+    this.productService.getCategories().subscribe({
+      next : (data) =>{
+        console.log("Category data:",data);
+        this.allCategories=data;
+      },
+      error :(error)=>{
+        console.error(error);
+      }
+    })
   }
   get rf(){
     return this.addEditProductDForm.controls;
