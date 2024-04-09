@@ -1,5 +1,6 @@
 export class Address{
     // id!:number;
+    houseNumber!:number;
     addLine1!:string;
     addLine2!:string;
     city!:string;

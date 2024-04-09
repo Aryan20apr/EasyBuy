@@ -4,10 +4,11 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 
 import { Router } from '@angular/router';
 import { ProductService } from '../shared/services/product.service';
-import { Product } from '../core/models/product.model';
+import { Product, ProductType } from '../core/models/product.model';
 import { DropzoneComponent } from '../shared/layouts/dropzone/dropzone.component';
 import { UploadService } from '../shared/services/upload.service';
 import { map } from 'rxjs';
+import { SELLER_TOKEN } from '../AppConstants';
 
 @Component({
   selector: 'app-product',
@@ -23,9 +24,9 @@ export class ProductComponent implements OnInit{
   popup_header!:string;
   add_prouct!:boolean;
   edit_prouct!:boolean;
-  prouct_data:any;
+  product_data:any;
   single_product_data:any;
-  product_dto!:Product
+  product_dto!:ProductType
   edit_product_id:any;
   files: File[] = [];
   uploadImageUrls:string[]=[];
@@ -81,22 +82,28 @@ export class ProductComponent implements OnInit{
     }
     this.isLoading=true;
     this.isUploaded=false;
-    this.uploadFiles();
-    
+    //this.uploadFiles();
+    this.createProduct();
   }
 
   createProduct()
   {
-    this.uploadSubscription.unsubscribe();
-    this.prouct_data = this.addEditProductDForm.value;
+    //this.uploadSubscription.unsubscribe();
+    this.product_data = this.addEditProductDForm.value;
     this.product_dto = {
-      id:Math.floor(Math.random() * 100) + 1,
-      name:this.prouct_data.name,
-      uploadPhoto:this.uploadService.imageUrls,
-      productDesc:this.prouct_data.productDesc,
-      mrp:this.prouct_data.mrp,
-      dp:this.prouct_data.dp,
-      status:this.prouct_data.status,
+     
+      productName:this.product_data.name,
+      imageURLs:this.uploadService.imageUrls,
+      productDescription:this.product_data.productDesc,
+      markedPrice:this.product_data.mrp,
+      displayPrice:this.product_data.dp,
+      orderLimit:this.product_data.orderLimit,
+      counntryOfOrigin:this.product_data.counntryOfOrigin,
+      availibility:this.product_data.status,
+      categoryId:this.product_data.status,
+      count:this.product_data.count,
+      discountPercent:this.calculateDiscount(Number(this.product_data.mrp),Number(this.product_data.dp)),
+      sellerToken:localStorage.getItem(SELLER_TOKEN)??''
     }
 
    this.uploadSubscription=  this.productService.addNewProduct(this.product_dto).subscribe({next:data=>{
@@ -115,6 +122,10 @@ export class ProductComponent implements OnInit{
   }
   });
   
+  }
+
+  calculateDiscount(mp:number,dp:number):number {
+    return ((mp-dp)/dp)*100;
   }
 
   uploadFiles() {
@@ -165,17 +176,23 @@ export class ProductComponent implements OnInit{
     if(this.addEditProductDForm.invalid){
       return;
     }
-    this.prouct_data = this.addEditProductDForm.value;
+    this.product_data = this.addEditProductDForm.value;
     this.product_dto = {
-      id:0,
-      name:this.prouct_data.name,
-      uploadPhoto:this.prouct_data.uploadPhoto,
-      productDesc:this.prouct_data.productDesc,
-      mrp:this.prouct_data.mrp,
-      dp:this.prouct_data.dp,
-      status:this.prouct_data.status,
+     
+      productName:this.product_data.name,
+      imageURLs:this.uploadService.imageUrls,
+      productDescription:this.product_data.productDesc,
+      markedPrice:this.product_data.mrp,
+      displayPrice:this.product_data.dp,
+      orderLimit:this.product_data.orderLimit,
+      counntryOfOrigin:this.product_data.counntryOfOrigin,
+      availibility:this.product_data.status,
+      categoryId:this.product_data.status,
+      count:this.product_data.count,
+      discountPercent:this.calculateDiscount(Number(this.product_data.mrp),Number(this.product_data.dp)),
+      sellerToken:localStorage.getItem(SELLER_TOKEN)??''
     }
-    this.productService.updateProduct(this.edit_product_id,this.product_dto).subscribe(data=>{
+        this.productService.updateProduct(this.edit_product_id,this.product_dto).subscribe(data=>{
       this.getAllProduct();
 
     },error=>{

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../core/service/api.service';
 import { Observable } from 'rxjs';
-import { baseURLCustomer, customerLogin, customerRegister } from '../../AppConstants';
+import { baseURLCustomer, login, customerRegister, logout, baseURLSeller } from '../../AppConstants';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,11 @@ export class LoginSignupService {
 
   constructor(private http:HttpClient, private apiService:ApiService) { }
   authLogin(userLoginDto:any):Observable<any>{
-    return this.apiService.post(baseURLCustomer+customerLogin,userLoginDto);
+    return this.apiService.post(baseURLCustomer+login,userLoginDto);
+  }
+  authAdminLogin(userLoginDto:any):Observable<any>{
+    debugger;
+    return this.apiService.post(baseURLSeller+login,userLoginDto);
   }
 
   userRegister(user_dto:any):Observable<any>{
@@ -30,5 +34,11 @@ export class LoginSignupService {
   saveUserData(data:string)
   {
     localStorage.setItem("CUSTOMER_TOKEN",data);
+  }
+
+  logout():Observable<any>{
+
+    
+    return this.apiService.get(baseURLCustomer+logout,true)
   }
 }

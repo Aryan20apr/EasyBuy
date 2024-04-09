@@ -4,7 +4,7 @@ export class User{
     name!:string;
     password!:string;
     // uploadPhoto!:string;
-    role!:string;
+    roles!:string[];
     mobNumber!:string;
     address!:Address;
     gender!:string;

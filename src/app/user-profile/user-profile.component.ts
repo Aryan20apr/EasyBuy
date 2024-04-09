@@ -91,7 +91,7 @@ export class UserProfileComponent implements OnInit{
       email:this.user_update_data.email,
       gender:this.user_update_data.gender,
       address:{
-       
+        houseNumber:this.user_update_data.houseNumber,
         addLine1: this.user_update_data.addLine1,
         addLine2: this.user_update_data.addLine2,
         city: this.user_update_data.city,
@@ -103,7 +103,7 @@ export class UserProfileComponent implements OnInit{
       name:this.user_update_data.name,
       password:this.user_update_data.password,
     
-      role:this.user_update_data.role
+      roles:this.user_update_data.role
     }
     this.user_Service.updateUserData(this.user_id, this.user_dto).subscribe({
       next:(data:any)=>{

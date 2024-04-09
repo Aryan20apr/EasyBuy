@@ -41,6 +41,7 @@ export const routes: Routes = [
             {path:'sign-up',component:SigninSignupComponent},
         ]
     },
+    
     {
         path:'',canActivate:[sellerAuthGuard],children:[
             {path:'seller-dashboard',component:SellerDashboardComponent},

@@ -17,8 +17,8 @@ export class ApiService {
   private formatErrors(error:any){
     return throwError(error.error)
   }
-  get(path:string, params:HttpParams =new HttpParams()):Observable<any>{
-    return this.http.get(path,{params}).pipe(catchError(this.formatErrors))
+  get(path:string, credentials:boolean=false, params:HttpParams =new HttpParams()):Observable<any>{
+    return this.http.get(path,{params:params,withCredentials:credentials}).pipe(catchError(this.formatErrors))
   }
   put(path:string, body:Object ={}):Observable<any>{
     return this.http.put(path,JSON.stringify(body), this.httpOptions).pipe(catchError(this.formatErrors))

@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../core/service/api.service';
 import { Observable } from 'rxjs';
+import { BASE_URL, CATEGORY_URL } from '../../AppConstants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   
-  public product_url=" http://localhost:3000/products/"
+  public product_url=" http://easybuy/api/v1/product"
 
   constructor(private httpClient:HttpClient, private apiService:ApiService) { }
   allProduct():Observable<any>{
@@ -25,5 +26,11 @@ export class ProductService {
   }
   deleteProduct(id:any):Observable<any>{
     return this.apiService.delete(this.product_url+id);
+  }
+
+  getCategories():Observable<any>
+  {
+    debugger;
+    return this.apiService.get(BASE_URL+CATEGORY_URL);
   }
 }

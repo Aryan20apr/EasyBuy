@@ -53,9 +53,9 @@
             <a class="nav-link" routerLink="/sign-up">Sign Up</a>
         </li>
     </ul>
-    <ul class="navbar-nav ml-auto" *ngIf="logged_in">
+    <ul class="navbar-nav ml-auto" *ngIf="logged_in ">
       <!-- User Dropdown -->
-      <li class="nav-item">
+      <li class="nav-item"  *ngIf=" isCustomer">
         <a class="nav-link sim-pointer" routerLink="/cart">
           <fa-icon [icon]="faShoppingCart" aria-label="cart" title="Cart"></fa-icon> Your Cart
         </a>

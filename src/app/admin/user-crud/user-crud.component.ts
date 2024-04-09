@@ -88,7 +88,7 @@ export class UserCrudComponent implements OnInit{
       email:this.user_reg_data.email,
       gender:this.user_reg_data.gender,
       address:{
-        
+        houseNumber:this.user_reg_data.houseNumber,
         addLine1: this.user_reg_data.addLine1,
         addLine2: this.user_reg_data.addLine2,
         city: this.user_reg_data.city,
@@ -100,7 +100,7 @@ export class UserCrudComponent implements OnInit{
       name:this.user_reg_data.name,
       password:this.user_reg_data.password,
      
-      role:this.user_reg_data.role
+      roles:this.user_reg_data.role
     }
     this.adminService.addUser(this.user_dto).subscribe(data=>{
       this.addEditUserForm.reset();
@@ -159,7 +159,7 @@ export class UserCrudComponent implements OnInit{
       email:this.user_reg_data.email,
       gender:this.user_reg_data.gender,
       address:{
-        
+        houseNumber:this.user_reg_data.houseNumber,
         addLine1: this.user_reg_data.addLine1,
         addLine2: this.user_reg_data.addLine2,
         city: this.user_reg_data.city,
@@ -171,7 +171,7 @@ export class UserCrudComponent implements OnInit{
       name:this.user_reg_data.name,
       password:this.user_reg_data.password,
      
-      role:this.user_reg_data.role
+      roles:this.user_reg_data.role
     }
 
     this.adminService.editUser(this.edit_user_id,this.user_dto).subscribe(data=>{

@@ -5,7 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { User } from '../../core/models/user.model';
 import { LoginSignupService } from '../../shared/services/login-signup.service';
 import { ToastrService } from 'ngx-toastr';
-import { ACCESS_TOKEN, CUSTOMER_TOKEN, REFRESH_TOKEN, ROLE, USERNAME } from '../../AppConstants';
+import { ACCESS_TOKEN, CUSTOMER, CUSTOMER_TOKEN, REFRESH_TOKEN, ROLE, SELLER, SELLER_TOKEN, USERNAME } from '../../AppConstants';
 
 
 
@@ -46,10 +46,11 @@ export class SigninSignupComponent implements OnInit {
     this.signUpForm = this.fb.group({
       name: ['', Validators.required],
       mobNumber: ['', Validators.required],
-      age: ['', Validators.required],
-      dob: ['', Validators.required],
+     
+      
       email: ['', [Validators.required,]],
       password: ['', [Validators.required,]],
+      houseNumber:['',Validators.required],
       addLine1: ['', Validators.required],
       addLine2: [],
       city: ['', Validators.required],
@@ -82,19 +83,20 @@ export class SigninSignupComponent implements OnInit {
       email:this.user_reg_data.email,
       gender:this.user_reg_data.gender,
       address:{
-        
+        houseNumber:this.user_reg_data.houseNumber,
         addLine1: this.user_reg_data.addLine1,
         addLine2: this.user_reg_data.addLine2,
         city: this.user_reg_data.city,
         state: this.user_reg_data.state,
         zipCode: this.user_reg_data.zipCode,
       },
+      roles:[this.user_reg_data.role],
       // language:this.user_reg_data.language,
       mobNumber:this.user_reg_data.mobNumber,
       name:this.user_reg_data.name,
       password:this.user_reg_data.password,
       // uploadPhoto:this.user_reg_data.uploadPhoto,
-      role:this.user_reg_data.role
+      
     }
 
     console.log("User Data from Registartion form: ",JSON.stringify(this.user_dto));
@@ -114,7 +116,8 @@ export class SigninSignupComponent implements OnInit {
     
     },
     complete: () => {
-      this.login({username:this.user_reg_data.email,password:this.user_reg_data.email,})
+      debugger;
+      this.login({username:this.user_reg_data.email,password:this.user_reg_data.password,})
     }
   },
   
@@ -123,6 +126,7 @@ export class SigninSignupComponent implements OnInit {
 
   login(signInDTO:any|null)
   {
+    console.log(this.signInFormValue.isSeller)
     if(signInDTO==null)
     {
       signInDTO={
@@ -130,6 +134,8 @@ export class SigninSignupComponent implements OnInit {
         password:this.signInFormValue.userPassword
       }
     }
+    if( !this.signInFormValue.isSeller)
+    {
     this.loginService.authLogin(signInDTO).subscribe({
       next:(data)=>{
         if(data.code==2000)
@@ -139,7 +145,7 @@ export class SigninSignupComponent implements OnInit {
           localStorage.setItem( ACCESS_TOKEN, data.data.accessToken );
           localStorage.setItem( REFRESH_TOKEN, data.data.refreshToken );
           localStorage.setItem( USERNAME, data.data.username);
-          localStorage.setItem( ROLE, 'CUSTOMER');
+          localStorage.setItem( ROLE, CUSTOMER);
           this.toastr.success("Login Successfull");
           debugger;
           this.router.navigateByUrl('/buyer-dashboard');
@@ -157,34 +163,65 @@ export class SigninSignupComponent implements OnInit {
       }
     })
   }
-
-  onSubmitSignIn(){
-    let userLoginDTO = {
-      email:this.signInFormValue.userEmail,
-      password:this.signInFormValue.userPassword
-    }
-    this.loginService.authLogin(userLoginDTO).subscribe(data=>{
-      this.user_data = data;
-
-      console.log('User data obtained on login:',JSON.stringify(this.user_data))
-      if(this.user_data.length ==1){
-        if(this.user_data[0].role =="seller"){
-          sessionStorage.setItem("user_session_id", this.user_data[0].id);
-          sessionStorage.setItem("role", this.user_data[0].role);
+  else
+  {
+    this.loginService.authAdminLogin(signInDTO).subscribe({
+      next:(data)=>{
+        if(data.code==2000)
+        {
+          console.log(data)
+          localStorage.setItem( SELLER_TOKEN, data.data.token );
+          localStorage.setItem( ACCESS_TOKEN, data.data.accessToken );
+          localStorage.setItem( REFRESH_TOKEN, data.data.refreshToken );
+          localStorage.setItem( USERNAME, data.data.username);
+          
+          localStorage.setItem( ROLE, SELLER);
+          this.toastr.success("Login Successfull");
+          debugger;
           this.router.navigateByUrl('/seller-dashboard');
-        }else if(this.user_data[0].role =="buyer"){
-          sessionStorage.setItem("user_session_id", this.user_data[0].id);
-          sessionStorage.setItem("role", this.user_data[0].role);
-          this.router.navigateByUrl('/buyer-dashboard');
-        }else{
-          alert("Invalid login details");
         }
-      }else{
-        alert("Invalid")
+        else if(data.code == 2002)
+        {
+          //alert(data.data);
+          console.log(data)
+          this.toastr.error(data.data);
+        }
+        else
+        {
+          this.toastr.error("Some error occured");
+        }
       }
-      console.log(this.user_data)
-    }, error=>{
-      console.log("My error", error)
     })
   }
+  }
+
+  // onSubmitSignIn(){
+  //   let userLoginDTO = {
+  //     email:this.signInFormValue.userEmail,
+  //     password:this.signInFormValue.userPassword
+  //   }
+  //   this.loginService.authLogin(userLoginDTO).subscribe(data=>{
+  //     this.user_data = data;
+
+  //     console.log('User data obtained on login:',JSON.stringify(this.user_data))
+  //     if(this.user_data.length ==1){
+  //       if(this.user_data[0].role =="seller"){
+  //         sessionStorage.setItem("user_session_id", this.user_data[0].id);
+  //         sessionStorage.setItem("role", this.user_data[0].role);
+  //         this.router.navigateByUrl('/seller-dashboard');
+  //       }else if(this.user_data[0].role =="buyer"){
+  //         sessionStorage.setItem("user_session_id", this.user_data[0].id);
+  //         sessionStorage.setItem("role", this.user_data[0].role);
+  //         this.router.navigateByUrl('/buyer-dashboard');
+  //       }else{
+  //         alert("Invalid login details");
+  //       }
+  //     }else{
+  //       alert("Invalid")
+  //     }
+  //     console.log(this.user_data)
+  //   }, error=>{
+  //     console.log("My error", error)
+  //   })
+  // }
 }
