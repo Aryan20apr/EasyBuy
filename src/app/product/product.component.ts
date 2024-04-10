@@ -106,8 +106,8 @@ export class ProductComponent implements OnInit{
     }
     this.isLoading=true;
     this.isUploaded=false;
-    //this.uploadFiles();
-    this.createProduct();
+    this.uploadFiles();
+    //this.createProduct();
   }
 
   createProduct()
@@ -138,6 +138,7 @@ export class ProductComponent implements OnInit{
       console.log("Product upload data: ",data)
     },error:error=>{
       this.isUploaded=true;
+      this.isLoading=false;
       console.log("Some error occured while adding new product:", error)
     },
     complete:()=>{
@@ -157,9 +158,9 @@ export class ProductComponent implements OnInit{
     this.uploadProgress = []; // Clear progress array
     let fileCount=0;
   this.uploadSubscription=  this.uploadService.uploadFiles(this.files).subscribe({
-     next: (progressArray: (number|undefined)[]) => {
-        this.uploadProgress = progressArray;
-        console.log(this.uploadProgress)
+     next: (progress: (number|undefined)) => {
+        // this.uploadProgress = progressArray;
+        console.log(progress)
         
         
         // Extract URLs from progressArray and collect them into uploadedImageUrls array

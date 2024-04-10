@@ -1,6 +1,7 @@
 export const baseURLCustomer="http://localhost:8085/easybuy/api/v1/customer"
 export const baseURLSeller="http://localhost:8085/easybuy/api/v1/seller"
 export const BASE_URL="http://localhost:8085/easybuy/api/v1/"
+export const UPLOAD="upload/images"
 export const customerRegister="/register"
 export const login="/login"
 export const logout="/logout"

@@ -55,11 +55,13 @@
 //   }
 // }
 
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, Subject, forkJoin } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
+import { BASE_URL, UPLOAD } from '../../AppConstants';
 
 @Injectable({
   providedIn: 'root'
@@ -67,19 +69,28 @@ import { finalize, map } from 'rxjs/operators';
 export class UploadService {
   private basePath = '/uploads';
   imageUrls:string[]=[];
-  constructor(private storage: AngularFireStorage) { }
+  constructor(private storage: AngularFireStorage,private httpClient:HttpClient) { }
+  
+  private progressSubject = new Subject<number>();
+  /** Observable of all messages */
+  progress$ = this.progressSubject.asObservable();
 
-  uploadFiles(files: File[]): Observable<(number | undefined)[]> {
-    const uploadObservables: Observable<number|undefined>[] = [];
+  uploadFiles(files: File[]):Observable<number |undefined> /*Observable<(number | undefined)[]> */
+  {
+    //const uploadObservables: Observable<number|undefined>[] = [];
 
-    files.forEach(file => {
-      const uploadTask = this.uploadFile(file);
-      uploadObservables.push(uploadTask);
-    });
+    // files.forEach(file => {
+    //   const uploadTask = this.uploadFileHttp(file);
+    //   uploadObservables.push(uploadTask);
+    // });
+    // uploadObservables.push(uploadTask);
 
-    return forkJoin(uploadObservables);
+    // return forkJoin(uploadObservables);
+
+    return this.uploadFileHttp(files);
+  
   }
-  uploadFile(file:File): Observable<number | undefined> {
+  uploadFileFire(file:File): Observable<number | undefined> {
     const filePath = `${this.basePath}/${file.name}`;
     const storageRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, file);
@@ -97,6 +108,42 @@ export class UploadService {
 
     return uploadTask.percentageChanges();
   }
+
+  
+  uploadFileHttp(filesUpload: File[]):Observable<number | undefined>
+  {    
+    const formData = new FormData();
+  
+    
+      // formData.append('images', filesUpload);
+
+      for (const element of filesUpload) {
+        formData.append("images", element)
+      }
+    
+    
+    this.httpClient.post(BASE_URL+UPLOAD,formData,{
+      reportProgress: true,
+      observe: 'events',
+    }).subscribe(event => {
+
+      switch (event.type) {
+        case HttpEventType.UploadProgress:
+          console.log('Uploaded ' + event.loaded + ' out of ' + event.total + ' bytes');
+          this.progressSubject.next((event.loaded/event.total!)*100);
+          break;
+        case HttpEventType.Response:
+          console.log('Finished uploading!');
+          this.progressSubject.complete();
+          
+          break;
+      }
+    });
+    return  this.progress$;
+  }
+
+
+  
 
   private saveFileData(imageUrl:string): void {
     console.log("Image url obtained is: ",imageUrl)
