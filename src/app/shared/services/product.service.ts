@@ -3,19 +3,21 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '../../core/service/api.service';
 import { Observable } from 'rxjs';
 import { BASE_URL, CATEGORY_URL } from '../../AppConstants';
+import { ProductType } from '../../core/models/product.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   
-  public product_url=" http://easybuy/api/v1/product"
+  public product_url=" http://localhost:8085/easybuy/api/v1/product"
 
   constructor(private httpClient:HttpClient, private apiService:ApiService) { }
   allProduct():Observable<any>{
     return this.apiService.get(this.product_url);
   }
-  addNewProduct(product_dto:any):Observable<any>{
+  addNewProduct(product_dto:ProductType):Observable<any>{
+    console.log("Product DTO to be uploaded: ",product_dto)
     return this.apiService.post(this.product_url, product_dto);
   }
   singleProduct(id:any){

@@ -50,7 +50,13 @@ export class ProductComponent implements OnInit{
       productDesc:['',Validators.required],
       mrp:['',Validators.required],
       dp:['',Validators.required],
-      status:['',Validators.required],
+      productCount:['',Validators.required],
+      orderLimit:['',Validators.required],
+      countryOfOrigin:['',Validators.required],
+      categoryId : ['',Validators.required],
+
+      status:['',Validators.required]
+
     })
     //this.getAllProduct()
   }
@@ -60,7 +66,8 @@ export class ProductComponent implements OnInit{
     this.productService.getCategories().subscribe({
       next : (data) =>{
         console.log("Category data:",data);
-        this.allCategories=data;
+
+        this.allCategories=data.data;
       },
       error :(error)=>{
         console.error(error);
@@ -112,14 +119,14 @@ export class ProductComponent implements OnInit{
       productName:this.product_data.name,
       imageURLs:this.uploadService.imageUrls,
       productDescription:this.product_data.productDesc,
-      markedPrice:this.product_data.mrp,
-      displayPrice:this.product_data.dp,
-      orderLimit:this.product_data.orderLimit,
-      counntryOfOrigin:this.product_data.counntryOfOrigin,
-      availibility:this.product_data.status,
-      categoryId:this.product_data.status,
-      count:this.product_data.count,
-      discountPercent:this.calculateDiscount(Number(this.product_data.mrp),Number(this.product_data.dp)),
+      markedPrice:Number(this.product_data.mrp),
+      displayPrice:Number(this.product_data.dp),
+      orderLimit:Number(this.product_data.orderLimit),
+      countryOfOrigin:this.product_data.countryOfOrigin,
+      availibility:Boolean(this.product_data.status),
+      categoryId:Number(this.product_data.categoryId),
+      count:Number(this.product_data.productCount),
+      discountPercent:Number(this.calculateDiscount(Number(this.product_data.mrp),Number(this.product_data.dp))),
       sellerToken:localStorage.getItem(SELLER_TOKEN)??''
     }
 
@@ -128,13 +135,14 @@ export class ProductComponent implements OnInit{
       this.isLoading=false;
       this.getAllProduct();
       
-      console.log(data)
+      console.log("Product upload data: ",data)
     },error:error=>{
+      this.isUploaded=true;
       console.log("Some error occured while adding new product:", error)
     },
     complete:()=>{
       this.isUploaded=true;
-      console.log('complete')
+      console.log('product upload complete')
    
   }
   });
@@ -202,7 +210,7 @@ export class ProductComponent implements OnInit{
       markedPrice:this.product_data.mrp,
       displayPrice:this.product_data.dp,
       orderLimit:this.product_data.orderLimit,
-      counntryOfOrigin:this.product_data.counntryOfOrigin,
+      countryOfOrigin:this.product_data.countryOfOrigin,
       availibility:this.product_data.status,
       categoryId:this.product_data.status,
       count:this.product_data.count,

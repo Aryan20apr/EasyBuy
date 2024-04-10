@@ -19,6 +19,6 @@ export class Product{
     displayPrice: number;
     discountPercent: number;
     orderLimit: number;
-    counntryOfOrigin: string;
+    countryOfOrigin: string;
     imageURLs: string[];
 }

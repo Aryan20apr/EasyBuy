@@ -45,53 +45,79 @@
 <div class="modal fade" id="addEditProductModal" tabindex="-1" role="dialog" aria-labelledby="addEditUserTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
-        <div class="modal-header fs-5">
+        <div class="modal-header bg-primary text-white fs-5">
             <h5 class="modal-title">{{popup_header}}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>        
-      <div class="modal-body">
+      <div class="modal-body bg-light">
         <div class="row">
           <div class="col-md-10 offset-md-1">
             <form [formGroup]="addEditProductDForm">
-              <div class="form-group">
-                <label for="productName">Product Name</label>
+              <div class="form-group mb-3">
+                <label for="productName" class="form-label">Product Name</label>
                 <input type="text" class="form-control" formControlName="name">
               </div>
               <!-- <div class="form-group">
-                <label for="productImage">Product Image Url</label>
-                <input type="url" class="form-control" formControlName="uploadPhoto">
-              </div> -->
-            
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <app-dropzone (filesSelected)="onFilesSelected($event)"></app-dropzone>
+                  <label for="productImage">Product Image Url</label>
+                  <input type="url" class="form-control" formControlName="uploadPhoto">
+                </div> -->
+              
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <app-dropzone (filesSelected)="onFilesSelected($event)"></app-dropzone>
+                    </div>
                   </div>
                 </div>
-              </div>
-               
+                 
+                
+                <div class="form-group">
+                  <label class="form-label" for="productDescription">Product Description</label>
+                  <textarea rows="3" class="form-control" formControlName="productDesc"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="productMRP">Product MRP</label>
+                  <input type="text" class="form-control" formControlName="mrp">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="productDP">Product DP</label>
+                  <input type="text" class="form-control" formControlName="dp">
+                </div>
               
-              <div class="form-group">
-                <label for="productDescription">Product Description</label>
-                <textarea rows="3" class="form-control" formControlName="productDesc"></textarea>
+                <div class="form-group">
+                  <label class="form-label" for="productCount">Units available</label>
+                  <input id="productCount" type="number" class="form-control" formControlName="productCount">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="order-limit">Maximum number of units per order</label>
+                  <input id="order-limit" type="number" class="form-control" formControlName="orderLimit">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="coi">Country of origin</label>
+                  <input id="coi" type="text" class="form-control" formControlName="countryOfOrigin">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="category">Category</label>
+                  <select class="form-control" formControlName="categoryId" name="Category">
+                      <option value="">--Please choose a category--</option>
+                      <!-- Assuming 'allCategories' is an array of 'CategoryType' -->
+                      <option *ngFor="let category of allCategories" [value]="category.id">{{category.name}}</option>
+                  </select>
               </div>
-              <div class="form-group">
-                <label for="productMRP">Product MRP</label>
-                <input type="text" class="form-control" formControlName="mrp">
-              </div>
-              <div class="form-group">
-                <label for="productDP">Product DP</label>
-                <input type="text" class="form-control" formControlName="dp">
-              </div>
-              <div class="form-group">
-                <label for="productStatus">Product Status</label>
-                <select class="form-control" formControlName="status">
-                  <option value="darft">Draft</option>
-                  <option value="inactive">Inactive</option>
-                  <option value="publish">Publish</option>
-                </select>
-              </div>
-              <div class="form-group">
+              
+               
+                <div class="form-group">
+                  <label class="form-label" for="productStatus">Product Status</label>
+                  <select class="form-control" formControlName="status" name="Product Status" >
+                    <option value="">--Please choose status of your product--</option>
+                    <option value="false">Draft</option>
+                    <option value="false">Inactive</option>
+                    <option value="true">Publish</option>
+                  </select>
+                </div>
+ 
+              <!-- Rest of your form fields -->
+              <div class="form-group mt-3">
                 <button class="btn btn-primary" (click)="addNewProduct()" *ngIf="add_prouct && isLoading==false && isUploaded==null">Add Product  </button>
                 <button class="btn btn-primary" *ngIf="isLoading" type="button" disabled>
                   <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -105,6 +131,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
+
 
 </div>
